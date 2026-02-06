@@ -1,4 +1,5 @@
 # password_generator
 
-A script than generates a 24 character long alphanumeric password with at least one special character and copies it to clipboard.
-Tested only on Windows.
+Password generator with a simple GUI using customtkinter. 
+Password length can be defined by user, as can use of numbers, special characters or uppercase letters in the password.
+Tested on Windows and Fedora.
