@@ -98,41 +98,52 @@ def GUI():
 
 
     width = 500
-    height = 300
+    height = 400
     app = ct.CTk()
     ct.set_appearance_mode("dark")
     app.title("Password Generator")
-    app.geometry(f"{width}x{height}")
+
+    screen_width = app.winfo_screenwidth()
+    screen_height = app.winfo_screenheight()
+    position_top = int(screen_height / 2 - height / 2)
+    position_right = int(screen_width / 2 - width / 2)
+
+    app.geometry(f"{width}x{height}+{position_right}+{position_top}")
     app.grid_columnconfigure(0, weight=1)
+    app.grid_columnconfigure(1, weight=1)
+    app.grid_rowconfigure(0, weight=1)
+    app.grid_rowconfigure(1, weight=1)
+    app.grid_rowconfigure(2, weight=1)
+    app.grid_rowconfigure(3, weight=1)
 
     # Password textbox
-    textbox = ct.CTkTextbox(app, width=width, height=height / 3)
-    textbox.grid(row=0, column=0, columnspan=2, padx=20, pady=20, sticky="e")
+    textbox = ct.CTkTextbox(app)
+    textbox.grid(row=0, column=0, columnspan=3, padx=10, pady=10, sticky="nsew")
     textbox.configure(state="disabled")
 
     # Password length entry box
-    entry_password_length = ct.CTkEntry(app, placeholder_text=str(password_length), textvariable=ct.StringVar(value=str(password_length)))
-    entry_password_length.grid(row=1, column=0, padx=10, pady=10, sticky="e")
     entry_label = ct.CTkLabel(app, text="Password Length")
-    entry_label.grid(row=1, column=1, padx=10, pady=10)
-
+    entry_label.grid(row=1, column=0, padx=0, pady=10, sticky="e")
+    entry_password_length = ct.CTkEntry(app, placeholder_text=str(password_length), textvariable=ct.StringVar(value=str(password_length)))
+    entry_password_length.grid(row=1, column=1, padx=0, pady=10, sticky="e")
+    
     # Checkboxes
     numberbox_state = ct.BooleanVar(value=use_numbers)
     specialbox_state = ct.BooleanVar(value=use_special)
     uppercasebox_state = ct.BooleanVar(value=use_uppercase)
 
     checkbox_numbers = ct.CTkCheckBox(app, text="Use Numbers", variable=numberbox_state, command=numberbox_event)
-    checkbox_numbers.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+    checkbox_numbers.grid(row=2, column=0, padx=10, pady=10, sticky="nsew")
 
     checkbox_special = ct.CTkCheckBox(app, text="Use Special", variable=specialbox_state, command=specialbox_event)
-    checkbox_special.grid(row=2, column=1, padx=10, pady=10, sticky="e")
+    checkbox_special.grid(row=2, column=1, padx=10, pady=10, sticky="nsew")
 
     checkbox_uppercase = ct.CTkCheckBox(app, text="Use Uppercase", variable=uppercasebox_state, command=uppercasebox_event)
-    checkbox_uppercase.grid(row=2, column=2, padx=10, pady=10, sticky="e")
+    checkbox_uppercase.grid(row=2, column=2, padx=10, pady=10, sticky="nsew")
 
     # Button
     button = ct.CTkButton(app, text="Generate New", command=button_event)
-    button.grid(row=3, column=0, columnspan=2, padx=20, pady=20)
+    button.grid(row=3, column=0, columnspan=2, padx=40, pady=10, sticky="se")
 
     generate_and_update() # Generate initial password
 
